@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta n="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      background-color: #8f000b;
+      position: relative;
+    }
+
+    h3 {
+      width: 800px;
+      margin: 0 auto;
+      margin-top: 100px;
+      text-align: center;
+      color: #600000;
+      font-size: 30px;
+
+    }
+
+    span {
+      color: white
+    }
+
+    .time {
+      width: 800px;
+      margin: 80px auto;
+      font-size: 55px;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      width: 800px;
+      height: 200px;
+      margin: 40px auto;
+    }
+
+    .n {
+      cursor: pointer;
+    }
+
+    .dan {
+      height: 500px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .mu {
+      /* transition: 4s; */
+      animation: move 8s linear infinite;
+    }
+    button{
+      border: none;
+      background-color: #8f000b;
+      color: white;
+      cursor: pointer;
+      width: 50px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+    }
+    @keyframes move {
+      from {
+        transform: translateX(0px)
+      }
+
+      to {
+        transform: translateX(-1300px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <img src="./pkulogo_white.png" alt="">
+  <h3>距离 <span class="n">张琪</span> 考取 <span>北京大学</span> 还有</h3>
+  <div class="time"></div>
+  <div class="dan"></div>
+  <button>Clear</button>
+
+  <script>
+    // var time = document.querySelector(".time");
+    time()
+
+    function time() {
+      // 设置目标时间
+      var endTime = new Date('2018/12/22 08:00:00')
+      // var endTime = +new Date(2018,12,22,9,0,0),
+      // 获取当前时间
+      startTime = new Date(),
+        //  /1000 换算成秒 
+        // 获取毫秒数也就是时间戳 除了使用getTime()方法 还可以在new Date前面加上+
+        runTime = parseInt((endTime.getTime() - startTime.getTime()) / 1000);
+      // console.log(runTime);
+      // 60（秒） * 60（分钟） * 24（小时） = 86400；也就是一天的秒数
+      var year = Math.floor(runTime / 86400 / 365);
+      runTime = runTime % (86400 * 365);
+      var month = Math.floor(runTime / 86400 / 30);
+      runTime = runTime % (86400 * 30);
+      var day = Math.floor(runTime / 86400);
+      if (day < 10) {
+        day = '0' + day;
+      }
+      runTime = runTime % 86400;
+      var hour = Math.floor(runTime / 3600);
+      if (hour < 10) {
+        hour = '0' + hour;
+      }
+      runTime = runTime % 3600;
+      var minute = Math.floor(runTime / 60);
+      if (minute < 10) {
+        minute = '0' + minute;
+      }
+      runTime = runTime % 60;
+      var second = runTime;
+      if (second < 10) {
+        second = '0' + second;
+      }
+      // console.log(year, month, day, hour, minute, second);
+    var time = document.querySelector(".time");      
+      time.innerText = day + '天' + hour + '小时' + minute + '分' + second + '秒'
+    }
+
+    setInterval(function () {
+      time()
+    }, 1000)
+    var dan = document.querySelector(".dan");
+    var n = document.querySelector(".n");
+    var arr = ['你们是最棒的！', '加油！', '一定可以的！', '天才天才！','北大在向你们招手']
+    n.addEventListener('click', function () {
+      if (n.innerText === '张琪') {
+        n.innerText = '王子凡'
+      } else {
+        n.innerText = '张琪'
+      }
+      var span = document.createElement('span');
+      var count = parseInt(Math.random() * 5)
+      console.log(count);
+      span.style.width = 100 + 'px'
+      span.innerText = arr[count]
+      span.className = 'mu'
+      span.style.position = 'absolute';
+      span.style.right = 0;
+      span.style.top = Math.random() * 400 + 'px'
+      dan.appendChild(span);
+      // var mu = document.querySelectorAll(".mu");
+      // for( var i = 0; i < mu.length; i++){
+      //   mu[i].style.transition = '4s'
+      //   mu[i].style.transform = 'translateX(-1200px)'
+      // }
+    })
+    var btn = document.querySelector("button");
+    btn.addEventListener('click',function(){
+      location.reload()
+    })
+  </script>
+</body>
+
+</html>
